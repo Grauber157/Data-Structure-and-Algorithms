@@ -128,7 +128,7 @@ int Buscar(Cab c, int n) { // QUESTAO 5
 
         c.inicio = pt->next;
 
-        cont += Buscar(c, n);
+        cont += Buscar(c, n); // Recursividade
     }
 
     return cont;
@@ -185,6 +185,40 @@ void Dividir(Cab c, int n) { // QUESTAO 7
 
     free(&lista_maior);
     free(&lista_menor);
+}
+
+void Intersecao(Cab c1, Cab c2) { // QUESTAO 8
+    Lista * pt1 = c1.inicio;
+    Lista * pt2 = c2.inicio;
+    Lista * aux = c2.inicio;
+    Cab inter;
+
+    IniciarLista(&inter);
+
+    // Escolher o primeiro elemento da lista 1 e comparar com os elementos da lista 2
+
+    while(pt1 != nullptr)
+    {
+        while(pt2 != nullptr)
+        {
+            if(pt1->num == pt2->num)
+            {
+                Inserir(&inter, pt1->num);
+            }
+
+            c2.inicio = pt2->next;
+
+             pt2 = c2.inicio;
+
+            //Intersecao(c1, c2);
+        }
+        pt2 = aux;
+
+        c1.inicio = pt1->next;
+        pt1 = c1.inicio;
+    }
+
+    Imprimir(inter);
 }
 
 /** OPÇÕES DO 'switch()' **/
@@ -419,6 +453,15 @@ void Opcao7(Cab lista1, Cab lista2) { // CASE DIVIDIR - 7
     }
 }
 
+void Opcao8(Cab lista1, Cab lista2) { // INTERSECAO - 8
+    system("cls");
+    cout << "+---INTERSECAO---+\n\n";
+
+    Intersecao(lista1, lista2);
+    system("pause");
+    system("cls");
+}
+
 int main() {
     Cab lista1;
     Cab lista2;
@@ -473,7 +516,7 @@ int main() {
             break;
 
             case 8:
-
+                Opcao8(lista1, lista2);
             break;
 
             case 0:
