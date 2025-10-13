@@ -52,33 +52,47 @@ void Inserir(Cab * c, int n) { // QUESTAO 1
 
 void Remover(Cab * c, int n) { // QUESTAO 2
     Lista * pt, * anterior;
-
+    int condicao = 1;
     pt = c->inicio;
 
-    if(pt == nullptr) // Lista vazia
+    if(pt == nullptr) // 1# Lista vazia
     {
         cout << "A LISTA ESTA VAZIA!" << endl << endl;
     }
     else
     {
-        if(pt->num == n) // Primeiro numero na lista
+        if(pt->num == n) // 2# Primeiro numero na lista
         {
             c->inicio = pt->next;
-
             c->quant--;
             free(pt);
             cout << "REMOVIDO COM SUCESSO!" << endl << endl;
         }
-        else
+        else // 3# Primeiro numero diferente
         {
-            while(pt != nullptr && pt->num != n)
+            while(pt != nullptr && condicao && pt->next != nullptr) // Usamos o 'condicao' para o 'while()' parar quando achar o elemento
             {
                 anterior = pt; // Guarda o anterior
                 pt = pt->next; // Avança para o proximo
+
+                if(pt->num == n) // 'if()' dentro do 'while()'
+                {
+                    condicao = 0;
+                    anterior->next = pt->next;
+                    c->quant--;
+                    free(pt);
+                }
             }
-            if(pt == nullptr)
+            if(pt->num != n) // 4# Caso seja o ultimo elemento
             {
-                cout << "NUMERO NAO ENCONTRADO!" << endl << endl;
+                cout << "NAO ENCONTRADO!" << endl << endl;
+            }
+            else
+            {
+                anterior->next = nullptr;
+                c->quant--;
+                free(pt);
+                cout << "REMOVIDO COM SUCESSO!" << endl << endl;
             }
         }
     }
@@ -107,7 +121,7 @@ int MedirComprimento(Cab c) { // QUESTAO 4
     {
         total += sizeof(pt);
 
-        c.inicio = pt->next;
+        c.inicio = pt->next; // proxima lista
 
         total += MedirComprimento(c); // Recursividade
     }
@@ -526,7 +540,7 @@ int main() {
             break;
 
             default:
-
+                system("cls");
             break;
         }
     }
