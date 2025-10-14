@@ -56,12 +56,12 @@ Lista * Remover(Cab * c, Lista * pt, int n) { // QUESTAO 2
     if(pt != nullptr)
     {
     	resul = pt;
-    	if(pt->num == n) // Caso deletar o primeiro Elemento
+    	if(pt->num == n) // Caso deletar o primeiro registro
     	{
     		// Elimina o elemento
     		resul = pt->next;
     		
-    		if(pt == c->inicio)
+    		if(pt == c->inicio) // Assegura o caso para deletar o primeiro registro
     		{
     			c->inicio = resul;
 			}
