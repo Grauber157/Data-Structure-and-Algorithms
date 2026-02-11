@@ -96,6 +96,38 @@ void Imprimir(No * pt) {
 
 }
 
+No * Remover(Lista * lis, No * pt, float numero) {
+    No * resul;
+
+    if(pt != NULL)
+    {
+        resul = pt;
+
+        if(pt->valor == numero)
+        {
+            resul = pt->next;
+
+            if(pt == lis->inicio)
+            {
+                lis->inicio = resul;
+            }
+
+            free(pt);
+        }
+        else
+        {
+            pt->next = Remover(lis, pt->next, numero);
+        }
+
+    }
+    else
+    {
+        cout << "Numero nao encontrado!" << endl;
+    }
+
+    return resul;
+}
+
 int main() {
     Lista lista;
 
@@ -112,6 +144,12 @@ int main() {
     InserirOrdenado(&lista, lista.inicio, 2);
     InserirOrdenado(&lista, lista.inicio, 1);
     InserirOrdenado(&lista, lista.inicio, 9);
+
+    Imprimir(lista.inicio);
+
+    Remover(&lista, lista.inicio, 10);
+
+    cout << endl << endl;
 
     Imprimir(lista.inicio);
 
